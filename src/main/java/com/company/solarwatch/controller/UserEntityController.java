@@ -39,10 +39,18 @@ public class UserEntityController {
         this.jwtUtils = jwtUtils;
     }
 
-    @PostMapping("/register")
+    @PostMapping("/register_user")
     public ResponseEntity<Void> createUser(@RequestBody UserRequest signUpRequest) {
         UserEntity user = new UserEntity(signUpRequest.getUsername(),
                 passwordEncoder.encode(signUpRequest.getPassword()), Set.of(Role.ROLE_USER));
+        userEntityRepository.createUser(user);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PostMapping("/register_admin")
+    public ResponseEntity<Void> createAdmin(@RequestBody UserRequest signUpRequest) {
+        UserEntity user = new UserEntity(signUpRequest.getUsername(),
+                passwordEncoder.encode(signUpRequest.getPassword()), Set.of(Role.ROLE_ADMIN));
         userEntityRepository.createUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

@@ -3,6 +3,7 @@ package com.company.solarwatch.model.solarWatchData;
 import jakarta.persistence.*;
 import lombok.*;
 
+@Builder
 @Getter
 @Setter
 @ToString
