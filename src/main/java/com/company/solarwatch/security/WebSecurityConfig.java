@@ -65,6 +65,7 @@ public class WebSecurityConfig {
                         auth.requestMatchers("user/**").permitAll()
                                 .requestMatchers("team/**").hasRole("USER")
                                 .requestMatchers("/error").permitAll()
+                                .requestMatchers("/solar-watch").permitAll()
                                 .anyRequest().authenticated()
 
                 );

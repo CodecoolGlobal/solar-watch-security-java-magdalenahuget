@@ -1,6 +1,6 @@
 package com.company.solarwatch.model;
 
-public enum Role {
+public enum RoleType {
     ROLE_USER,
     ROLE_ADMIN
 }
