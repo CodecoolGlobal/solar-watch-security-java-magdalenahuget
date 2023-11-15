@@ -8,6 +8,7 @@ import com.company.solarwatch.model.solarWatchData.Role;
 import com.company.solarwatch.repository.UserEntityRepository;
 import com.company.solarwatch.security.jwt.JwtUtils;
 import com.company.solarwatch.service.RoleService;
+import com.company.solarwatch.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,14 +35,16 @@ public class UserEntityController {
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
     private final RoleService roleService;
+    private final UserService userService;
 
     @Autowired
-    public UserEntityController(UserEntityRepository userEntityRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JwtUtils jwtUtils, RoleService roleService) {
+    public UserEntityController(UserEntityRepository userEntityRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JwtUtils jwtUtils, RoleService roleService, UserService userService) {
         this.userEntityRepository = userEntityRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
         this.jwtUtils = jwtUtils;
         this.roleService = roleService;
+        this.userService = userService;
     }
 
     @PostMapping("/register_user")
@@ -50,11 +53,7 @@ public class UserEntityController {
         if (userEntity != null) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
-        Role role = roleService.findByName(RoleType.ROLE_USER);
-        UserEntity user = new UserEntity(signUpRequest.getUsername(),
-                passwordEncoder.encode(signUpRequest.getPassword()), Set.of(role));
-        userEntityRepository.save(user);
-        System.out.println("User registered = " + user);
+        userService.createUser(signUpRequest);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
@@ -64,10 +63,7 @@ public class UserEntityController {
         if (userEntity != null) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
-        Role role = roleService.findByName(RoleType.ROLE_ADMIN);
-        UserEntity user = new UserEntity(signUpRequest.getUsername(),
-                passwordEncoder.encode(signUpRequest.getPassword()), Set.of(role));
-        userEntityRepository.save(user);
+        userService.createAdmin(signUpRequest);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
@@ -75,21 +71,14 @@ public class UserEntityController {
     public ResponseEntity<?> authenticateUser(@RequestBody UserRequest loginRequest) {
 
         System.out.println(loginRequest.toString());
-        Authentication authentication = authenticationManager
-                .authenticate(
-                        new UsernamePasswordAuthenticationToken(
-                                loginRequest.getUsername(),
-                                loginRequest.getPassword()));
+        Authentication authentication = userService.getAuthentication(loginRequest);
+        String jwt = userService.getSecurityContextAndJwt(authentication);
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtUtils.generateJwtToken(authentication);
+        User userDetails = userService.getUserDetails(authentication);
+        List<String> roles = userService.getRoles(userDetails);
+        JwtResponse jwtResponse = userService.createJwtResponse(jwt, userDetails.getUsername(), roles);
 
-        User userDetails = (User) authentication.getPrincipal();
-        List<String> roles = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority)
-                .toList();
-
-        return ResponseEntity
-                .ok(new JwtResponse(jwt, userDetails.getUsername(), roles));
+        return ResponseEntity.ok(jwtResponse);
     }
 
     @GetMapping("/me")
@@ -102,7 +91,7 @@ public class UserEntityController {
 
     @GetMapping("/authorize")
     @PreAuthorize("hasRole('USER')")
-    public  ResponseEntity<Void> authorize() {
+    public ResponseEntity<Void> authorize() {
         User user = (User) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal();
         if (user == null) {
