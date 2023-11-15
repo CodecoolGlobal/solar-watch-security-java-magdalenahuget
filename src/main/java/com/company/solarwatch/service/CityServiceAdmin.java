@@ -30,8 +30,8 @@ public class CityServiceAdmin {
         city.setLatitude(cityRequestDto.getLatitude());
         city.setState(cityRequestDto.getState());
         city.setCountry(cityRequestDto.getCountry());
-        cityRepository.save(city);
-        return cityMapper.mapCityToCityCityResponseDto(city);
+        City savedCity = cityRepository.save(city);
+        return cityMapper.mapCityToCityResponseDto(savedCity);
     }
 
     public CityResponseDto getCityById(Long cityId) {
@@ -42,7 +42,7 @@ public class CityServiceAdmin {
                     return new RuntimeException(
                             "City not found with id: {}" + cityId);
                 });
-        return cityMapper.mapCityToCityCityResponseDto(city);
+        return cityMapper.mapCityToCityResponseDto(city);
     }
 
     public CityResponseDto updateCityById(Long cityId, CityRequestDto cityRequest) {
@@ -58,7 +58,7 @@ public class CityServiceAdmin {
         city.setState(cityRequest.getState());
         city.setCountry(cityRequest.getCountry());
         cityRepository.save(city);
-        return cityMapper.mapCityToCityCityResponseDto(city);
+        return cityMapper.mapCityToCityResponseDto(city);
     }
 
     public void deleteCity(Long cityId) {
