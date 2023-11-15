@@ -2,6 +2,7 @@ package com.company.solarwatch.model.dto;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder

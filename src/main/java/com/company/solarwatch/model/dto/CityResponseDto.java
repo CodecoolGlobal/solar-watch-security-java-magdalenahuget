@@ -7,6 +7,7 @@ import lombok.Data;
 @Builder
 public class CityResponseDto {
 
+    private Long id;
     private String name;
     private double longitude;
     private double latitude;

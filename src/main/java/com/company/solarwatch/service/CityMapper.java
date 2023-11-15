@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CityMapper {
 
-    City mapCityResponseDtoToCity(CityResponseDto city) {
+    public City mapCityResponseDtoToCity(CityResponseDto city) {
         return City.builder()
                 .name(city.getName())
                 .longitude(city.getLongitude())
@@ -18,7 +18,7 @@ public class CityMapper {
                 .build();
     }
 
-    CityRequestDto mapCityToCityRequestDto(City city) {
+    public CityRequestDto mapCityToCityRequestDto(City city) {
         return CityRequestDto.builder()
                 .name(city.getName())
                 .longitude(city.getLongitude())
@@ -28,8 +28,9 @@ public class CityMapper {
                 .build();
     }
 
-    CityResponseDto mapCityToCityCityResponseDto(City city) {
+    public CityResponseDto mapCityToCityResponseDto(City city) {
         return CityResponseDto.builder()
+                .id(city.getId())
                 .name(city.getName())
                 .longitude(city.getLongitude())
                 .latitude(city.getLatitude())
@@ -38,7 +39,7 @@ public class CityMapper {
                 .build();
     }
 
-    City mapCityRequestDtoToCity(CityRequestDto cityRequestDto) {
+    public City mapCityRequestDtoToCity(CityRequestDto cityRequestDto) {
         return City.builder()
                 .name(cityRequestDto.getName())
                 .longitude(cityRequestDto.getLongitude())
