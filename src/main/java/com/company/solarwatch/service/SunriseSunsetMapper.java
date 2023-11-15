@@ -15,7 +15,7 @@ public class SunriseSunsetMapper {
 
     SunriseSunsetResponseDto mapToSunriseSunsetResponseDto(SunriseSunset sunriseSunset) {
         return SunriseSunsetResponseDto.builder()
-                .city(cityMapper.mapCityToCityCityResponseDto(sunriseSunset.getCity()))
+                .city(cityMapper.mapCityToCityResponseDto(sunriseSunset.getCity()))
                 .date(sunriseSunset.getDate())
                 .sunriseTime(sunriseSunset.getSunriseTime())
                 .sunsetTime(sunriseSunset.getSunsetTime())

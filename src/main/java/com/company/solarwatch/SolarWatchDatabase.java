@@ -23,22 +23,22 @@ public class SolarWatchDatabase {
         SpringApplication.run(SolarWatchDatabase.class, args);
     }
 
-    @Bean
-    CommandLineRunner commandLineRunner(
-            RoleService roleService,
-            UserEntityRepository userEntityRepository,
-            PasswordEncoder passwordEncoder) {
-        return runner -> {
-            Role userrole = new Role(RoleType.ROLE_USER);
-            Role adminrole = new Role(RoleType.ROLE_ADMIN);
-            roleService.createRole(userrole);
-            roleService.createRole(adminrole);
-            Role role = roleService.findByName(RoleType.ROLE_USER);
-            System.out.println(role);
-            UserEntity ela = new UserEntity("ela",
-                    passwordEncoder.encode("ela"), Set.of(role));
-            System.out.println(ela);
-            userEntityRepository.save(ela);
-        };
-    }
+//    @Bean
+//    CommandLineRunner commandLineRunner(
+//            RoleService roleService,
+//            UserEntityRepository userEntityRepository,
+//            PasswordEncoder passwordEncoder) {
+//        return runner -> {
+//            Role userrole = new Role(RoleType.ROLE_USER);
+//            Role adminrole = new Role(RoleType.ROLE_ADMIN);
+//            roleService.createRole(userrole);
+//            roleService.createRole(adminrole);
+//            Role role = roleService.findByName(RoleType.ROLE_USER);
+//            System.out.println(role);
+//            UserEntity ela = new UserEntity("ela",
+//                    passwordEncoder.encode("ela"), Set.of(role));
+//            System.out.println(ela);
+//            userEntityRepository.save(ela);
+//        };
+//    }
 }
