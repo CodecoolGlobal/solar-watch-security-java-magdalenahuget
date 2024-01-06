@@ -35,14 +35,33 @@ This project allowed me to gain all the most important information I needed to s
 - Using MockWebServer to mock external Web APIs in integration tests
 
 ## Screenshots
+![](readmeResources/registration.png)
+
+![](readmeResources/login.png)
+
+![](readmeResources/solarwatch.png)
+
+![](readmeResources/city-gordes.png)
+
 ## Setup
+1. *Install Git* - Make sure you have the Git version control system installed on your computer.
+2. *Clone Repository* - Copy the project repository URL and clone it on your local computer using the following command in the terminal:
+
+```
+git clone <repository-url>
+```
+
+3. *Configure application* - Contact the project maintainers for configuration file. Set up PostgreSQL the database. Make sure to configure the backend files and database connections as needed.
+4. *Run the Application* - After completing the above steps, you can now run the application.
+
 ## Usage
+For all sun lovers to check what time the sun rises and sets in every corner of the world
 
 ## Project Status
 Project is: _completed_
 
 ## Room for Improvement
-Create a user interface in the frontend part.
+Improve user interface to implement all backend features.
 
 ## Authors
 Magdalena Huget
