@@ -1,5 +1,10 @@
 # solar-watch
 
+Here you can find repository with frontend part for this project:
+
+- [Frontend part](https://github.com/CodecoolGlobal/solarwatch-frontend-javascript-magdalenahuget)
+
+
 ## Table of Contents
 * [General Info](#general-information)
 * [Technologies Used](#technologies-used)
