@@ -35,13 +35,13 @@ This project allowed me to gain all the most important information I needed to s
 - Using MockWebServer to mock external Web APIs in integration tests
 
 ## Screenshots
-![](readmeResources/registration.png)
+![](readmeResources/registration.PNG)
 
-![](readmeResources/login.png)
+![](readmeResources/login.PNG)
 
-![](readmeResources/solarwatch.png)
+![](readmeResources/solarwatch.PNG)
 
-![](readmeResources/city-gordes.png)
+![](readmeResources/city-gordes.PNG)
 
 ## Setup
 1. *Install Git* - Make sure you have the Git version control system installed on your computer.
