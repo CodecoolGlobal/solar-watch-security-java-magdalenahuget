@@ -33,3 +33,16 @@ This project allowed me to gain all the most important information I needed to s
 - Integration Testing With @SpringBootTest
 - Using in-memory database for integration tests
 - Using MockWebServer to mock external Web APIs in integration tests
+
+## Screenshots
+## Setup
+## Usage
+
+## Project Status
+Project is: _completed_
+
+## Room for Improvement
+Create a user interface in the frontend part.
+
+## Authors
+Magdalena Huget
